@@ -17,8 +17,10 @@ public class BookSearch {
 
 	private static final NumberFormat CURRENCY_FORMATTER = NumberFormat.getCurrencyInstance();
 
-	private static void queryGoogleBooks(JsonFactory jsonFactory, String query) throws Exception {
-
+	private static String queryGoogleBooks(JsonFactory jsonFactory, String query) throws Exception {
+		
+		String bookStr = "";
+		
 		// Set up Books client.
 		final Books books = new Books.Builder(GoogleNetHttpTransport.newTrustedTransport(), jsonFactory, null)
 				.setApplicationName(APPLICATION_NAME)
@@ -28,8 +30,8 @@ public class BookSearch {
 		// Execute the query.
 		Volumes volumes = volumesList.execute();
 		if (volumes.getTotalItems() == 0 || volumes.getItems() == null) {
-			System.out.println("No matches found.");
-			return;
+			bookStr=bookStr+"No matches found."+"\n";
+			return bookStr;
 		}
 
 		// Output results.
@@ -39,44 +41,44 @@ public class BookSearch {
 			Volume.VolumeInfo volumeInfo = volume.getVolumeInfo();
 			Volume.SaleInfo saleInfo = volume.getSaleInfo();
 
-			System.out.println("\n \n ");
+			bookStr=bookStr+"\n \n ";
 			// Title.
-			System.out.println("Title: " + volumeInfo.getTitle());
+			bookStr=bookStr+"Title: " + volumeInfo.getTitle();
 			// Author(s).
 			java.util.List<String> authors = volumeInfo.getAuthors();
 			if (authors != null && !authors.isEmpty()) {
-				System.out.print("Author(s): ");
+				bookStr=bookStr+"Author(s): ";
 				for (int i = 0; i < authors.size(); ++i) {
-					System.out.print(authors.get(i));
+					bookStr=bookStr+authors.get(i);
 					if (i < authors.size() - 1) {
-						System.out.print(", ");
+						bookStr=bookStr+", ";
 					}
 				}
-				System.out.println();
+				bookStr=bookStr+"\n";
 			}
 			// Description (if any).
 			if (volumeInfo.getDescription() != null && volumeInfo.getDescription().length() > 0) {
-				System.out.println("Description: " + volumeInfo.getDescription());
+				bookStr=bookStr+"Description: " + volumeInfo.getDescription();
 			}
 			// Ratings (if any).
 			if (volumeInfo.getRatingsCount() != null && volumeInfo.getRatingsCount() > 0) {
 				int fullRating = (int) Math.round(volumeInfo.getAverageRating().doubleValue());
-				System.out.print("User Rating: ");
+				bookStr=bookStr+"User Rating: ";
 				for (int i = 0; i < fullRating; ++i) {
-					System.out.print("*");
+					bookStr=bookStr+"*";
 				}
-				System.out.println(" (" + volumeInfo.getRatingsCount() + " rating(s))");
+				bookStr=bookStr+" (" + volumeInfo.getRatingsCount() + " rating(s))";
 			}
 			// Price (if any).
 			if (saleInfo != null && "FOR_SALE".equals(saleInfo.getSaleability())) {
 				double save = saleInfo.getListPrice().getAmount() - saleInfo.getRetailPrice().getAmount();
 				if (save > 0.0) {
-					System.out.print("List: " + CURRENCY_FORMATTER.format(saleInfo.getListPrice().getAmount()) + "  ");
+					bookStr=bookStr+"List: " + CURRENCY_FORMATTER.format(saleInfo.getListPrice().getAmount()) + "  ";
 				}
-				System.out.print(
-						"Google eBooks Price: " + CURRENCY_FORMATTER.format(saleInfo.getRetailPrice().getAmount()));
+				bookStr=bookStr+
+						"Google eBooks Price: " + CURRENCY_FORMATTER.format(saleInfo.getRetailPrice().getAmount());
 
-				System.out.println();
+				bookStr=bookStr+"\n";
 			}
 			// Access status.
 			String accessViewStatus = volume.getAccessInfo().getAccessViewStatus();
@@ -86,15 +88,17 @@ public class BookSearch {
 			} else if ("SAMPLE".equals(accessViewStatus)) {
 				message = "A preview of this book is available from Google at:";
 			}
-	 		System.out.println(message);
+			bookStr=bookStr+message;
 			// Link to Google eBooks.
-			System.out.println(volumeInfo.getInfoLink());
+			bookStr=bookStr+volumeInfo.getInfoLink();
 		}
+		return bookStr;
 	}
 
-	public static void main(String[] args) throws Exception {
+	public static String search(String bookName) throws Exception {
 		JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
-		queryGoogleBooks(jsonFactory, "java");
+		//System.out.println(queryGoogleBooks(jsonFactory, bookName));
+		return queryGoogleBooks(jsonFactory, bookName);
 
 	}
 }

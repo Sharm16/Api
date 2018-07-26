@@ -11,6 +11,10 @@ import com.google.api.services.books.model.Volumes;
 import com.qa.constants.ClientCredentials;
 import java.text.NumberFormat;
 
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Component;
+
+@Component
 public class BookSearch {
 
 	private static final String APPLICATION_NAME = "QA-WebGame";

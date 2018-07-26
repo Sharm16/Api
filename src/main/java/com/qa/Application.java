@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.Gson;
 
-@SpringBootApplication
+@SpringBootApplication (scanBasePackages = "com.qa.controller")
 public class Application {
 	
 	static final String topicExchangeName = "spring-boot-exchange";
@@ -45,8 +45,8 @@ public class Application {
 //		return new Gson();
 //	}
 
-	public static void main(String args[]) {
-		SpringApplication.run(Application.class);
+	public static void main(String args[]) throws Exception {
+		SpringApplication.run(Application.class, args);
 	}
 	
 }

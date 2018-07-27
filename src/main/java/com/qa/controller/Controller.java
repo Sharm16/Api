@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.BookSearch;
+import com.qa.google.books.BookSearch;
 
 
-//@RequestMapping("/books")
+@RequestMapping("/books")
 @RestController
 public class Controller {
 	

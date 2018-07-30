@@ -1,28 +1,90 @@
 package com.qa.userdata;
 
-public class UserData {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
+public class UserData {
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
 	private String username;
+	private String firstName;
+	private String lastName;
 	private String password;
 	private String email;
+	private int totalQuestions;
+	private int correctQuestions;
 	private int id;
-	private int score;
 	private int level;
 	private int exp;
+	private String pictureUrl;
 
-	public UserData(String username, String password, String email, int id, int score, int level, int exp) {
+	
 
+	public UserData(String username, String firstName, String lastName, String password, String email,
+			int totalQuestions, int correctQuestions, int id, int level, int exp, String pictureUrl) {
+		
 		this.username = username;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.password = password;
 		this.email = email;
+		this.totalQuestions = totalQuestions;
+		this.correctQuestions = correctQuestions;
 		this.id = id;
-		this.score = score;
 		this.level = level;
 		this.exp = exp;
+		this.pictureUrl = pictureUrl;
+	}
+	
+	public UserData() {
+		
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getPictureUrl() {
+		return pictureUrl;
+	}
+
+	public void setPictureUrl(String pictureUrl) {
+		this.pictureUrl = pictureUrl;
 	}
 
 	public String getUsername() {
 		return username;
+	}
+
+	public int getTotalQuestions() {
+		return totalQuestions;
+	}
+
+	public void setTotalQuestions(int totalQuestions) {
+		this.totalQuestions = totalQuestions;
+	}
+
+	public int getCorrectQuestions() {
+		return correctQuestions;
+	}
+
+	public void setCorrectQuestions(int correctQuestions) {
+		this.correctQuestions = correctQuestions;
 	}
 
 	public void setUsername(String username) {
@@ -53,13 +115,6 @@ public class UserData {
 		this.id = id;
 	}
 
-	public int getScore() {
-		return score;
-	}
-
-	public void setScore(int score) {
-		this.score = score;
-	}
 
 	public int getLevel() {
 		return level;

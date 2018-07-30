@@ -14,6 +14,8 @@ public class JSONUtility {
 		return gson.toJson(obj);
 		
 	}
-	
+	public <T> T getObjectForJSON(String jsonString, Class<T> clazz) {
+		return gson.fromJson(jsonString, clazz);
+	}
 
 }

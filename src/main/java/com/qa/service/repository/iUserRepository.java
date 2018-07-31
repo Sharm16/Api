@@ -1,12 +1,24 @@
 package com.qa.service.repository;
 
-public interface iUserRepository {
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
+
+import com.qa.userdata.UserData;
+
+public interface iUserRepository extends CrudRepository<UserData, Integer>{
 	
-	String getAllUsers();
+	
+	List<UserData> findByLastName(String lastName);
+	
+	UserData save(String user);
 
-	String createUser(String user);
-
-	String updateUser(int id, String UserToBeUpdated);
-
-	String deleteUser(int id);
+	
+//	String getAllUsers();
+//
+//	String createUser(String user);
+//
+//	String updateUser(int id, String UserToBeUpdated);
+//
+//	String deleteUser(int id);
 }

@@ -1,14 +1,22 @@
 package com.qa.service.business;
 
+import java.util.List;
+
+import com.qa.userdata.UserData;
+
 public interface iUserService {
 	
-	String getAllUsers();
+	Iterable<UserData> getAllUsers();
 
-	String addUser(String user);
-
-	String updateUser(int id, String user);
+	UserData addUser(UserData user);
 
 	String deleteUser(int id);
+
+	List<UserData> findUser(String name);
+
+	UserData test();
+
+	UserData addUser(String user);
 	
 
 }

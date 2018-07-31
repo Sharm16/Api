@@ -9,6 +9,7 @@ import javax.persistence.Id;
 public class UserData {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
+	private int id;
 	private String username;
 	private String firstName;
 	private String lastName;
@@ -16,7 +17,7 @@ public class UserData {
 	private String email;
 	private int totalQuestions;
 	private int correctQuestions;
-	private int id;
+	
 	private int level;
 	private int exp;
 	private String pictureUrl;
@@ -24,7 +25,7 @@ public class UserData {
 	
 
 	public UserData(String username, String firstName, String lastName, String password, String email,
-			int totalQuestions, int correctQuestions, int id, int level, int exp, String pictureUrl) {
+			int totalQuestions, int correctQuestions, int level, int exp, String pictureUrl) {
 		
 		this.username = username;
 		this.firstName = firstName;
@@ -33,13 +34,17 @@ public class UserData {
 		this.email = email;
 		this.totalQuestions = totalQuestions;
 		this.correctQuestions = correctQuestions;
-		this.id = id;
 		this.level = level;
 		this.exp = exp;
 		this.pictureUrl = pictureUrl;
 	}
 	
 	public UserData() {
+		
+	}
+	public UserData(String username, String password) {
+		this.username = username;
+		this.password = password;
 		
 	}
 

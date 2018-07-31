@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.qa.google.books.BookSearch;
 
 
-@RequestMapping("/books")
+@RequestMapping("/book")
 @RestController
-public class Controller {
+public class BookController {
 	
 	
 	@RequestMapping("/search/{name}")
